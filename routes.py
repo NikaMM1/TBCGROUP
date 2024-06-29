@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, flash, session, current_app, request
 from flask_login import login_user, logout_user, login_required, current_user
 from ext import app, db, login_manager
-from models import User, Order, MenuItem
+from models import User, Order, MenuItem  # Ensure MenuItem is imported from models if it's defined there
 from forms import RegisterForm, LoginForm, OrderForm
 
 menu_items = [
