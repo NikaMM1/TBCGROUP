@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Order{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Order</h1>
+    <form method="POST" action="{{ url_for('order') }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.email.label(class="form-label") }}
+            {{ form.email(class="form-control") }}
+        </div>
+        <div class="form-group mt-3">
+            {{ form.address.label(class="form-label") }}
+            {{ form.address(class="form-control") }}
+        </div>
+        <div class="form-group mt-3">
+            {{ form.card_number.label(class="form-label") }}
+            {{ form.card_number(class="form-control") }}
+        </div>
+        <div class="form-group mt-3">
+            {{ form.card_name.label(class="form-label") }}
+            {{ form.card_name(class="form-control") }}
+        </div>
+        <div class="form-group mt-3">
+            {{ form.expiration_date.label(class="form-label") }}
+            {{ form.expiration_date(class="form-control") }}
+        </div>
+        <div class="form-group mt-3">
+            {{ form.cvv.label(class="form-label") }}
+            {{ form.cvv(class="form-control") }}
+        </div>
+        <div class="form-group mt-3">
+            {{ form.food_item.label(class="form-label") }}
+            {{ form.food_item(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-primary mt-4" name="submit_order">Submit Order</button>
+        <div class="mt-4">
+            <h3>Cart Items</h3>
+            <ul class="list-group">
+                {% for item in cart_items %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>{{ item['name'] }}</strong> - ${{ item['price'] }}<br>
+                        <small>{{ item['description'] }}</small>
+                    </div>
+                    <form method="POST" action="{{ url_for('remove_from_cart', item_id=item['id']) }}">
+                        <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+    </form>
+</div>
+{% endblock %}
